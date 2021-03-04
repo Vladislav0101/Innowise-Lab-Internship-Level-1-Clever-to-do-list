@@ -1,0 +1,44 @@
+@media (max-width: 692px) {
+  .field {
+    -ms-grid-columns: 1fr !important;
+        grid-template-columns: 1fr !important;
+  }
+  .calendar-visible {
+    height: 85px !important;
+  }
+  .calendar_scroll {
+    margin-left: -105px !important;
+  }
+  .calendar-box {
+    width: 80px !important;
+  }
+  .day_block {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.3rem !important;
+  }
+  .name_of_day {
+    font-size: 0.8rem !important;
+  }
+  .nav {
+    display: none !important;
+  }
+  .burger {
+    display: block !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .input-title,
+  .input-description {
+    width: 300px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .input-title,
+  .input-description {
+    width: 250px !important;
+  }
+}
+/*# sourceMappingURL=adaptive.css.map */
