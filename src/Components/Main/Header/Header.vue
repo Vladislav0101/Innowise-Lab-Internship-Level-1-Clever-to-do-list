@@ -1,10 +1,11 @@
 <template>
   <header>
+    {{ isCreated }}
     <h1>
       missions for <span class="c_coral">{{ monthName }}</span>
     </h1>
     <div class="nav">
-      <CreationButton v-if="!isCreated" />
+      <CreationButton v-if="false" />
       <LogoutButton />
     </div>
     <Burger />
