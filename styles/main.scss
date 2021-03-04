@@ -56,6 +56,73 @@ li {
 .registration--area {
   background-color: $black;
 }
+//
+.auth_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.auth_box h1,
+.auth_box h2 {
+  margin-bottom: 2rem;
+}
+.auth--area {
+  position: relative;
+  text-align: center;
+  padding: 25px;
+  border-radius: 7px;
+}
+.auth_box form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.auth_box input {
+  width: 200px;
+  height: 30px;
+  font-size: 1rem;
+  margin: 5px;
+  border: 1px solid #fcfcfc;
+  border-radius: 7px;
+  background: none;
+  color: #fcfcfc;
+  padding-left: 10px;
+  outline: none;
+  transition: all 0.1s linear;
+}
+.auth_box input:hover {
+  background-color: #fcfcfc;
+  color: black;
+  cursor: pointer;
+}
+.auth_box button:hover {
+  box-shadow: 0 0 10px 0px #fcfcfc;
+  cursor: pointer;
+}
+.auth_box .from_sign_to_reg {
+  width: max-content;
+  margin: 0 auto;
+}
+.auth_box .from_sign_to_reg:hover {
+  cursor: pointer;
+  color: white;
+}
+.auth_box .error {
+  position: absolute;
+  color: #f44336;
+  background: #000000d9;
+  font-weight: 600;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: all 0.1s linear;
+}
+//
 button {
   color: $white;
   background-color: $coral;
