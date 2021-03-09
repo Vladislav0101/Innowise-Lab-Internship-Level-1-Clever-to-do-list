@@ -4,6 +4,7 @@ import Registration from "@/Components/Auth/Registration";
 import SignIn from "@/Components/Auth/SignIn";
 import Main from "@/Components/Main/Main";
 import CreateTask from "@/Components/CreateTask/CreateTask";
+import routes from "./routes";
 
 Vue.use(VueRouter);
 
@@ -12,22 +13,22 @@ export default new VueRouter({
   routes: [
     {
       name: "main",
-      path: "/",
+      path: routes.root,
       component: Main
     },
     {
       name: "registration",
-      path: "/registration",
+      path: routes.routes.registration,
       component: Registration
     },
     {
       name: "sign",
-      path: "/sign-in",
+      path: routes.routes.sign,
       component: SignIn
     },
     {
       name: "create",
-      path: "/create",
+      path: routes.routes.create,
       component: CreateTask
     }
   ]
