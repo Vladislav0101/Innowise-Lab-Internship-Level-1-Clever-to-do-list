@@ -1,7 +1,8 @@
 <template>
   <div class="burger">
     <div :class="{ burger_content: true, burger_animation: active }">
-      <CreationButton />
+      <CreationButton v-if="!isCreated" />
+      <BackToMainButton v-else />
       <LogoutButton />
     </div>
     <div class="burger_button" @click="getContent">
@@ -12,9 +13,13 @@
 <script>
 import LogoutButton from "@/Components/Main/Header/LogoutButton";
 import CreationButton from "@/Components/Main/Header/CreationButton";
+import BackToMainButton from "@/Components/Main/Header/BackToMainButton";
 
 export default {
-  components: { LogoutButton, CreationButton },
+  components: { LogoutButton, CreationButton, BackToMainButton },
+  props: {
+    isCreated: Boolean
+  },
   data() {
     return {
       active: false

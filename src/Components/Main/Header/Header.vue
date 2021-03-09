@@ -1,14 +1,14 @@
 <template>
   <header>
-    {{ isCreated }}
     <h1>
       missions for <span class="c_coral">{{ monthName }}</span>
     </h1>
     <div class="nav">
-      <CreationButton v-if="false" />
+      <CreationButton v-if="!isCreated" />
+      <BackToMainButton v-else />
       <LogoutButton />
     </div>
-    <Burger />
+    <Burger :is-created="isCreated" />
   </header>
 </template>
 
@@ -16,10 +16,11 @@
 import Burger from "@/Components/Main/Header/Burger";
 import LogoutButton from "@/Components/Main/Header/LogoutButton";
 import CreationButton from "@/Components/Main/Header/CreationButton";
+import BackToMainButton from "@/Components/Main/Header/BackToMainButton";
 import { mapGetters } from "vuex";
 
 export default {
-  components: { Burger, LogoutButton, CreationButton },
+  components: { Burger, LogoutButton, CreationButton, BackToMainButton },
   props: { isCreated: Boolean },
   data() {
     return {
@@ -31,9 +32,6 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("setMonths");
-  },
-  mounted() {
-    console.log("H", this.isCreated);
   },
   methods: {
     getMonthName() {
