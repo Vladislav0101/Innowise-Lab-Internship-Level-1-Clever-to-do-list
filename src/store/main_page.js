@@ -51,7 +51,7 @@ export default {
     setCurrentDayTasks(state) {
       state.activeDay = new Date();
     },
-    setMissions(state, missions) {
+    getMissions(state, missions) {
       state.missions = missions;
     },
     setMonths(state) {
@@ -88,12 +88,12 @@ export default {
     setCurrentDayTasks({ commit }) {
       commit("setCurrentDayTasks");
     },
-    setMissions({ commit }, uid) {
+    getMissions({ commit }, uid) {
       firebase
         .database()
         .ref("users/" + uid)
         .on("value", snapshot => {
-          commit("setMissions", snapshot.val());
+          commit("getMissions", snapshot.val());
         });
     },
     setMonths({ commit }) {

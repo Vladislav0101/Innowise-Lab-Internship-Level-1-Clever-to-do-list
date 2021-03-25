@@ -15,7 +15,7 @@
       src="../../../assets/delete.svg"
       class="delete"
       width="17px"
-      @click="deleteMission"
+      @click="removeMissionLocal"
     />
     <img
       src="../../../assets/edit.svg"
@@ -51,7 +51,8 @@ export default {
       "setIsEdit",
       "setKeyValueToEdit",
       "setTitleToEdit",
-      "setDescriptionToEdit"
+      "setDescriptionToEdit",
+      "removeMission"
     ]),
     setChecked() {
       this.item.completed = this.item.completed ? false : true;
@@ -62,17 +63,16 @@ export default {
           [this.keyValue]: this.item
         });
     },
-    deleteMission() {
-      firebase
-        .database()
-        .ref(`users/${this.user}/${this.activeDay}`)
-        .update({
-          [this.keyValue]: null
-        });
+    removeMissionLocal() {
+      this.removeMission({
+        user: this.user,
+        activeDay: this.activeDay,
+        keyValueToEdit: this.keyValue
+      });
     },
     editMission() {
       this.setIsEdit(true);
-      this.setKeyValueToEdit(true);
+      this.setKeyValueToEdit(this.keyValue);
       this.setTitleToEdit(this.item.title);
       this.setDescriptionToEdit(this.item.description);
       this.$router.push({ name: "create" });

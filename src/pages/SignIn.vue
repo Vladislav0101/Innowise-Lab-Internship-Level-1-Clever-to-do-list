@@ -5,9 +5,9 @@
         to<span style="margin:0 15px" class="c_white">-</span>do
       </h1>
       <form action="sign-in">
-        <input v-model="user.userMail" type="text" placeholder="mail" />
+        <input v-model="userLocal.userMail" type="text" placeholder="mail" />
         <input
-          v-model="user.userPassword"
+          v-model="userLocal.userPassword"
           type="password"
           placeholder="password"
         />
@@ -25,24 +25,39 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import getCurrentUser from "../utils/firebaseInit";
 
 export default {
   data() {
     return {
-      user: {
+      userLocal: {
         userMail: null,
         userPassword: null
       },
       submitStatus: null
     };
   },
+  computed: { ...mapGetters(["user"]) },
+  watch: {
+    user() {
+      if (this.$route.name !== "main" && this.user) {
+        getCurrentUser().then(res => {
+          console.log("res", res);
+          if (res) {
+            this.$store.dispatch("loggedUser", res);
+            this.$store.dispatch("getMissions", res.uid);
+            this.$router.push({ name: "main" });
+          }
+        });
+      }
+    }
+  },
   methods: {
     ...mapActions(["signIn"]),
     signIn_local_method() {
       try {
-        this.signIn(this.user);
-        if (this.$route.name !== "main") this.$router.push({ name: "main" });
+        this.signIn(this.userLocal);
       } catch (err) {
         this.submitStatus = err.message;
         setTimeout(() => {

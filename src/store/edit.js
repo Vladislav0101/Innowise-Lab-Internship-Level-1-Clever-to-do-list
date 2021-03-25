@@ -1,3 +1,4 @@
+import firebase from "firebase";
 export default {
   state: {
     titleToEdit: null,
@@ -45,6 +46,24 @@ export default {
     },
     setKeyValueToEdit({ commit }, keyValue) {
       commit("keyValueToEdit", keyValue);
+    },
+    setNewMission({ commit }, { user, dateToKey, mission }) {
+      firebase
+        .database()
+        .ref(`users/${user}/${dateToKey}`)
+        .update({
+          [+new Date()]: mission
+        });
+    },
+    removeMission({}, { user, activeDay, keyValueToEdit }) {
+      console.log("removeMission");
+      console.log(user, activeDay, keyValueToEdit);
+      firebase
+        .database()
+        .ref(`users/${user}/${activeDay}`)
+        .update({
+          [keyValueToEdit]: null
+        });
     }
   }
 };

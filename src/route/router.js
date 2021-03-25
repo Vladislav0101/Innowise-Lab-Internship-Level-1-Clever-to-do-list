@@ -1,35 +1,62 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Registration from "@/Components/Auth/Registration";
-import SignIn from "@/Components/Auth/SignIn";
-import Main from "@/Components/Main/Main";
-import CreateTask from "@/Components/CreateTask/CreateTask";
+import Registration from "@/pages/Registration";
+import SignIn from "@/pages/SignIn";
+import Main from "@/pages/Main";
+import CreateTask from "@/pages/CreateTask";
 import routes from "./routes";
+import getCurrentUser from "../utils/firebaseInit";
 
 Vue.use(VueRouter);
-
-export default new VueRouter({
+const router = new VueRouter({
   mode: "history",
   routes: [
     {
       name: "main",
       path: routes.root,
-      component: Main
+      component: Main,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       name: "registration",
       path: routes.routes.registration,
       component: Registration
+      // meta: {
+      //   requiresAuth: false
+      // }
     },
     {
       name: "sign",
       path: routes.routes.sign,
       component: SignIn
+      // meta: {
+      //   requiresAuth: false
+      // }
     },
     {
       name: "create",
       path: routes.routes.create,
-      component: CreateTask
+      component: CreateTask,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });
+router.beforeEach(async (to, from, next) => {
+  const user = await getCurrentUser();
+  const isRequiresAuth = to.meta.requiresAuth;
+  // console.log("user router", isRequiresAuth);
+  // console.log("user router", user);
+  if (isRequiresAuth && !user) {
+    next({ path: routes.routes.sign });
+  } else if (!isRequiresAuth && user) {
+    next({ path: routes.root });
+  } else {
+    next();
+  }
+});
+
+export default router;

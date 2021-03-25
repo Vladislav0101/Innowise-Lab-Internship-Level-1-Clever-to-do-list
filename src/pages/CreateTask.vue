@@ -87,7 +87,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setIsEdit"]),
+    ...mapActions(["setIsEdit", "setNewMission", "removeMission"]),
     setMission() {
       const myDate = new Date(
         Object.entries(this.date)
@@ -98,15 +98,15 @@ export default {
           }, [])
           .join("-")
       );
-      const dateToKey = `${myDate.getMonth()}-${myDate.getDate()}-${myDate.getFullYear()}`;
+      let dateToKey = `${myDate.getMonth()}-${myDate.getDate()}-${myDate.getFullYear()}`;
 
       if (this.isEdit) {
-        firebase
-          .database()
-          .ref(`users/${this.user}/${this.activeDay}`)
-          .update({
-            [this.keyValueToEdit]: null
-          });
+        console.log("this.keyValueToEdit", this.keyValueToEdit);
+        this.removeMission({
+          user: this.user,
+          activeDay: this.activeDay,
+          keyValueToEdit: this.keyValueToEdit
+        });
         this.mission.title = this.toEdit.title;
         this.mission.description = this.toEdit.description;
       }
@@ -116,12 +116,11 @@ export default {
         this.date.day &&
         this.date.year
       ) {
-        firebase
-          .database()
-          .ref(`users/${this.user}/${dateToKey}`)
-          .update({
-            [+new Date()]: this.mission
-          });
+        this.setNewMission({
+          user: this.user,
+          dateToKey: dateToKey,
+          mission: this.mission
+        });
         this.setIsEdit(false);
         this.$router.push({ name: "main" });
       } else {

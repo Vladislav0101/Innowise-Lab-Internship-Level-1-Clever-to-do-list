@@ -1,5 +1,7 @@
 <template>
-  <button class="logout" @click.prevent="logout">logout</button>
+  <router-link :to="{ name: 'sign' }">
+    <button class="logout" @click="logout">logout</button>
+  </router-link>
 </template>
 <script>
 import { mapActions } from "vuex";

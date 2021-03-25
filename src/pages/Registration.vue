@@ -32,6 +32,7 @@
 </template>
 <script>
 import { mapActions } from "vuex";
+import getCurrentUser from "../utils/firebaseInit";
 
 export default {
   data() {
@@ -50,6 +51,7 @@ export default {
       if (this.userPassword === this.userPasswordConfirm) {
         try {
           this.registerUser(this.user);
+          this.$router.push({ name: "main" });
           this.submitStatus = true;
         } catch (err) {
           this.submitStatus = err.message;
