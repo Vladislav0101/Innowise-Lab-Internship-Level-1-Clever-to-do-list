@@ -15,7 +15,7 @@
           sign in
         </button>
       </form>
-      <router-link :to="{ name: 'registration' }">
+      <router-link :to="pathRegistration">
         <div class="from_sign_to_reg">
           Registration
         </div>
@@ -26,7 +26,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import getCurrentUser from "../utils/firebaseInit";
+import routes from "@/route/routes";
 
 export default {
   data() {
@@ -38,26 +38,20 @@ export default {
       submitStatus: null
     };
   },
-  computed: { ...mapGetters(["user"]) },
-  watch: {
-    user() {
-      if (this.$route.name !== "main" && this.user) {
-        getCurrentUser().then(res => {
-          console.log("res", res);
-          if (res) {
-            this.$store.dispatch("loggedUser", res);
-            this.$store.dispatch("getMissions", res.uid);
-            this.$router.push({ name: "main" });
-          }
-        });
-      }
+  computed: {
+    ...mapGetters(["user"]),
+    pathRegistration() {
+      return routes.routes.registration;
     }
   },
   methods: {
     ...mapActions(["signIn"]),
-    signIn_local_method() {
+    async signIn_local_method() {
       try {
-        this.signIn(this.userLocal);
+        await this.signIn(this.userLocal);
+        if (this.user) {
+          this.$router.push(routes.root);
+        }
       } catch (err) {
         this.submitStatus = err.message;
         setTimeout(() => {

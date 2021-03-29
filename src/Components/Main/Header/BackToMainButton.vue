@@ -1,10 +1,20 @@
 <template>
-  <router-link :to="{ name: 'main' }">
+  <router-link :to="pathMain">
     <button class="create bgc_white c_black">
       back to main
     </button>
   </router-link>
 </template>
+<script>
+import routes from "@/route/routes";
+export default {
+  computed: {
+    pathMain() {
+      return routes.root;
+    }
+  }
+};
+</script>
 <style scoped>
 .create {
   padding: 5px;

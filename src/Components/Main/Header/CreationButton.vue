@@ -1,10 +1,20 @@
 <template>
-  <router-link :to="{ name: 'create' }">
+  <router-link :to="pathCreate">
     <button class="create bgc_white c_black">
       create a mission
     </button>
   </router-link>
 </template>
+<script>
+import routes from "@/route/routes";
+export default {
+  computed: {
+    pathCreate() {
+      return routes.routes.create;
+    }
+  }
+};
+</script>
 <style scoped>
 .create {
   padding: 5px;

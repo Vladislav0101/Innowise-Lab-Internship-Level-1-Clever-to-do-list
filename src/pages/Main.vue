@@ -33,7 +33,6 @@ export default {
         numberDays[1] = 29;
       }
       this.setDaysArray(numberDays[this.month]);
-      // this.$store.commit("setDaysArray", numberDays[this.month]);
       let arr = new Array(numberDays[this.month]).fill();
       return arr
         .map((item, idx) => {
