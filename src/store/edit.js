@@ -56,8 +56,6 @@ export default {
         });
     },
     removeMission({}, { user, activeDay, keyValueToEdit }) {
-      console.log("removeMission");
-      console.log(user, activeDay, keyValueToEdit);
       firebase
         .database()
         .ref(`users/${user}/${activeDay}`)

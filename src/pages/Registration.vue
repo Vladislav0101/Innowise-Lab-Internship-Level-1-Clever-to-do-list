@@ -6,14 +6,14 @@
       </h1>
       <h2 class="c_white">Registration</h2>
       <form action="registration">
-        <input v-model="user.userMail" type="text" placeholder="mail" />
+        <input v-model="userLocal.userMail" type="text" placeholder="mail" />
         <input
-          v-model="user.userPassword"
+          v-model="userLocal.userPassword"
           type="password"
           placeholder="password"
         />
         <input
-          v-model="user.userPasswordConfirm"
+          v-model="userLocal.userPasswordConfirm"
           type="password"
           placeholder="password"
         />
@@ -21,7 +21,7 @@
           Register
         </button>
       </form>
-      <router-link :to="{ name: 'sign' }">
+      <router-link :to="pathSign">
         <div class="from_sign_to_reg">
           Sign in
         </div>
@@ -31,13 +31,13 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
-import getCurrentUser from "../utils/firebaseInit";
+import { mapActions, mapGetters } from "vuex";
+import routes from "@/route/routes";
 
 export default {
   data() {
     return {
-      user: {
+      userLocal: {
         userMail: null,
         userPassword: null,
         userPasswordConfirm: null
@@ -45,14 +45,23 @@ export default {
       submitStatus: null
     };
   },
+  computed: {
+    ...mapGetters(["user"]),
+    pathSign() {
+      return routes.sign;
+    }
+  },
   methods: {
     ...mapActions(["registerUser"]),
-    createUser() {
+    async createUser() {
       if (this.userPassword === this.userPasswordConfirm) {
         try {
-          this.registerUser(this.user);
-          this.$router.push({ name: "main" });
-          this.submitStatus = true;
+          await this.registerUser(this.userLocal);
+          if (this.user) {
+            this.$store.dispatch("setMissions", this.user);
+            this.$router.push(routes.root);
+            this.submitStatus = true;
+          }
         } catch (err) {
           this.submitStatus = err.message;
           setTimeout(() => {

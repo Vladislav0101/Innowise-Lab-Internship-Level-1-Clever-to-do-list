@@ -88,7 +88,7 @@ export default {
     setCurrentDayTasks({ commit }) {
       commit("setCurrentDayTasks");
     },
-    getMissions({ commit }, uid) {
+    setMissions({ commit }, uid) {
       firebase
         .database()
         .ref("users/" + uid)

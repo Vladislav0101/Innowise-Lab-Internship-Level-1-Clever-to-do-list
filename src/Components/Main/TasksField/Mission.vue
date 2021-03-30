@@ -31,6 +31,7 @@
 <script>
 import firebase from "firebase";
 import { mapActions, mapGetters } from "vuex";
+import routes from "@/route/routes";
 
 export default {
   props: {
@@ -75,7 +76,7 @@ export default {
       this.setKeyValueToEdit(this.keyValue);
       this.setTitleToEdit(this.item.title);
       this.setDescriptionToEdit(this.item.description);
-      this.$router.push({ name: "create" });
+      this.$router.push(routes.create);
     }
   }
 };

@@ -43,8 +43,8 @@
 </template>
 <script>
 import Header from "@/Components/Main/Header/Header";
-import firebase from "firebase";
 import { mapActions, mapGetters } from "vuex";
+import routes from "@/route/routes";
 
 export default {
   components: {
@@ -101,7 +101,6 @@ export default {
       let dateToKey = `${myDate.getMonth()}-${myDate.getDate()}-${myDate.getFullYear()}`;
 
       if (this.isEdit) {
-        console.log("this.keyValueToEdit", this.keyValueToEdit);
         this.removeMission({
           user: this.user,
           activeDay: this.activeDay,
@@ -122,7 +121,7 @@ export default {
           mission: this.mission
         });
         this.setIsEdit(false);
-        this.$router.push({ name: "main" });
+        this.$router.push(routes.root);
       } else {
         this.errorInCreation = true;
         setTimeout(() => {
