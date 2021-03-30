@@ -9,7 +9,7 @@ import routes from "@/route/routes";
 export default {
   computed: {
     pathSign() {
-      return routes.routes.sign;
+      return routes.sign;
     }
   },
   methods: {

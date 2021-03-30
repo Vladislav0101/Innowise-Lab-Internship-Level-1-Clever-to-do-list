@@ -76,7 +76,7 @@ export default {
       this.setKeyValueToEdit(this.keyValue);
       this.setTitleToEdit(this.item.title);
       this.setDescriptionToEdit(this.item.description);
-      this.$router.push(routes.routes.create);
+      this.$router.push(routes.create);
     }
   }
 };

@@ -18,7 +18,7 @@ export default {
     }
   },
   actions: {
-    initializeApp({ commit, dispatch }) {
+    async initializeApp({ commit, dispatch }) {
       const firebaseConfig = {
         apiKey: process.env.VUE_APP_API_KEY,
         authDomain: process.env.VUE_APP_AUTH_DOMAIN,
@@ -29,13 +29,15 @@ export default {
         appId: process.env.VUE_APP_APPID
       };
       firebase.initializeApp(firebaseConfig);
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          dispatch("loggedUser", user);
-          dispatch("setMissions", user.uid);
-        }
-      });
       commit("setIsInit", true);
+      return new Promise((res, rej) => {
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            dispatch("loggedUser", user);
+          }
+          res(user);
+        }, rej);
+      });
     }
   }
 };

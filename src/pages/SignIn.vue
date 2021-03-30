@@ -11,7 +11,7 @@
           type="password"
           placeholder="password"
         />
-        <button class="submit" @click.prevent="signIn_local_method">
+        <button class="submit" @click.prevent="signInLocal">
           sign in
         </button>
       </form>
@@ -41,12 +41,12 @@ export default {
   computed: {
     ...mapGetters(["user"]),
     pathRegistration() {
-      return routes.routes.registration;
+      return routes.registration;
     }
   },
   methods: {
     ...mapActions(["signIn"]),
-    async signIn_local_method() {
+    async signInLocal() {
       try {
         await this.signIn(this.userLocal);
         if (this.user) {

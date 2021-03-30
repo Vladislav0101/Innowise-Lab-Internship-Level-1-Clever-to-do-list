@@ -48,7 +48,7 @@ export default {
   computed: {
     ...mapGetters(["user"]),
     pathSign() {
-      return routes.routes.sign;
+      return routes.sign;
     }
   },
   methods: {

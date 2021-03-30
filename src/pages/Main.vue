@@ -9,7 +9,7 @@
 import CalendarBox from "@/Components/Main/Calendar/CalendarBox.vue";
 import Header from "@/Components/Main/Header/Header";
 import FieldBox from "@/Components/Main/TasksField/FieldBox";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -22,8 +22,12 @@ export default {
       numberOfDays: this.countDays()
     };
   },
+  computed: { ...mapGetters(["user"]) },
+  mounted() {
+    this.setMissions(this.user);
+  },
   methods: {
-    ...mapActions(["setDaysArray"]),
+    ...mapActions(["setDaysArray", "setMissions"]),
     countDays() {
       const date = new Date(),
         year = date.getFullYear();

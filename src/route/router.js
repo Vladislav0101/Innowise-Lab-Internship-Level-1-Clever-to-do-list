@@ -5,11 +5,10 @@ import SignIn from "@/pages/SignIn";
 import Main from "@/pages/Main";
 import CreateTask from "@/pages/CreateTask";
 import routes from "./routes";
-import getCurrentUser from "../utils/firebaseInit";
 import store from "../store/index";
-import firebase from "firebase/app";
 
 Vue.use(VueRouter);
+
 const router = new VueRouter({
   mode: "history",
   routes: [
@@ -23,7 +22,7 @@ const router = new VueRouter({
     },
     {
       name: "registration",
-      path: routes.routes.registration,
+      path: routes.registration,
       component: Registration,
       meta: {
         requiresAuth: false
@@ -31,7 +30,7 @@ const router = new VueRouter({
     },
     {
       name: "sign",
-      path: routes.routes.sign,
+      path: routes.sign,
       component: SignIn,
       meta: {
         requiresAuth: false
@@ -39,7 +38,7 @@ const router = new VueRouter({
     },
     {
       name: "create",
-      path: routes.routes.create,
+      path: routes.create,
       component: CreateTask,
       meta: {
         requiresAuth: true
@@ -47,11 +46,11 @@ const router = new VueRouter({
     }
   ]
 });
-router.beforeEach(async (to, from, next) => {
-  let user = await getCurrentUser();
+router.beforeEach((to, from, next) => {
+  let user = store.state.user.user;
   const isRequiresAuth = to.meta.requiresAuth;
   if (isRequiresAuth && !user) {
-    next({ path: routes.routes.sign });
+    next({ path: routes.sign });
   } else if (!isRequiresAuth && user) {
     next({ path: routes.root });
   } else {

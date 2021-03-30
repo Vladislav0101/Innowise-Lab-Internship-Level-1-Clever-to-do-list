@@ -10,7 +10,7 @@ import routes from "@/route/routes";
 export default {
   computed: {
     pathCreate() {
-      return routes.routes.create;
+      return routes.create;
     }
   }
 };
